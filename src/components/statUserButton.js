@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as Constant from "../asset/icon.js";
+import ApolloClient from "apollo-boost";
 import FloatingLabel, {
   floatingStyles,
   focusStyles,
@@ -13,9 +14,51 @@ class StatUserButton extends React.Component {
     super(props);
     this.state = {
       text: "User Account State:",
-      nbGolds: 2,
+      dataUser: "",
+      itemsUser: "",
+      nbGolds: 0,
       nbCards: 0
     };
+    this.getFetchUser("23");
+    this.getFetchInventoryUser("23");
+  }
+
+  getFetchUser(idUser) {
+    fetch("https://api.coopuniverse.fr/user/" + idUser) //notre fetch from Json de API
+      .then(response => response.json())
+      //.then(data => (this.setState.dataUser = data));
+      .then(data =>
+        this.setState({
+          dataUser: data,
+          nbGolds: data.data.user.Money
+        })
+      );
+
+    /*  .then(data =>
+        this.setState({
+          dataUser: data
+        })
+      );
+      */
+  }
+
+  getFetchInventoryUser(idUser) {
+    fetch("https://api.coopuniverse.fr/inventory/" + idUser) //notre fetch from Json de API
+      .then(response => response.json())
+      //.then(data => (this.setState.itemsUser = data) );
+      .then(data =>
+        this.setState({
+          itemsUser: data,
+          nbCards: data.data.inventory.length
+        })
+      );
+
+    /* .then(data =>
+        this.setState({
+          itemsUser: data
+        })
+      );
+      */
   }
 
   actionOnClickButton = () => {

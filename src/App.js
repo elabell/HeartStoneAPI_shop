@@ -5,6 +5,7 @@ import DetailItem from "./components/detailItem.js";
 import NavigationButton from "./components/navigationButton.js";
 import StatUserButton from "./components/statUserButton.js";
 import "./asset/materialize.min.css";
+import renameProp from "recompose";
 
 class App extends Component {
   constructor(props) {
@@ -15,12 +16,38 @@ class App extends Component {
       itemsUser: "",
       start: 0,
       sizePage: 10,
-      maxSize: 0
+      maxSize: 0,
+      idUser: "23"
     };
     this.getFetch();
-    this.getFetchUser("23");
-    this.getFetchInventoryUser("23");
+    // this.getFetchUser("23");
+    // this.getFetchInventoryUser("23");
   }
+  /*
+  componentDidMount() {
+    Promise.all([
+      fetch("https://api.coopuniverse.fr/card/"),
+      fetch("https://api.coopuniverse.fr/user/23"),
+      fetch("https://api.coopuniverse.fr/inventory/23")
+    ])
+      .then(allResponses => {
+        const response1 = allResponses[0];
+        const response2 = allResponses[1];
+        const response3 = allResponses[2];
+      })
+
+      .then(values => {
+        console.log(values);
+      });
+  }
+*/
+
+  /*  Promise.all([
+  fetch("http://localhost:3000/items/get"),
+  fetch("http://localhost:3000/contactlist/get"),
+  fetch("http://localhost:3000/itemgroup/get")
+]).then(([items, contactlist, itemgroup])
+*/
 
   getFetch() {
     fetch("https://api.coopuniverse.fr/card/") //notre fetch from Json de API
@@ -32,18 +59,6 @@ class App extends Component {
           detailNavigator: false
         })
       );
-  }
-
-  getFetchUser(idUser) {
-    fetch("https://api.coopuniverse.fr/user/" + idUser) //notre fetch from Json de API
-      .then(response => response.json())
-      .then(data => (this.setState.dataUser = data));
-  }
-
-  getFetchInventoryUser(idUser) {
-    fetch("https://api.coopuniverse.fr/inventory/" + idUser) //notre fetch from Json de API
-      .then(response => response.json())
-      .then(data => (this.setState.itemsUser = data));
   }
 
   nextPage() {
