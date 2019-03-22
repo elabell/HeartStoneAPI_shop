@@ -49,7 +49,7 @@ class StatUserButton extends React.Component {
       .then(data =>
         this.setState({
           itemsUser: data,
-          nbCards: data.data.inventory.length
+          nbCards: data.data.inventory.inventory.length
         })
       );
 
